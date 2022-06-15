@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 01:46:26 by kyacini           #+#    #+#             */
-/*   Updated: 2022/06/15 05:22:22 by kyacini          ###   ########.fr       */
+/*   Updated: 2022/06/15 06:34:42 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 void	parcer(char str, va_list val, int *count)
 {
-	unsigned long int	temp;
-
 	if (str == 'c')
 		*count = *count + tranlate_c(va_arg(val, int));
 	else if (str == 's')
@@ -26,12 +24,7 @@ void	parcer(char str, va_list val, int *count)
 	else if ((str == 'x' || str == 'X'))
 		conv_hex(va_arg(val, int), str, count);
 	else if (str == 'p')
-	{
-		temp = va_arg(val, unsigned long int);
-		*count = *count + ft_putstr("0x");
-		conv_hexadd(temp);
-		*count = *count + temp;
-	}
+		translate_p(va_arg(val, unsigned long int), count);
 	else if (str == 'u')
 		put_unsignednbr(va_arg(val, unsigned int), count);
 	else if (str == '%')
@@ -65,21 +58,4 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(args);
 	return (count);
-}
-
-int main()
-{
-	int i = 0, j = 0;
-
-	void* p2 = NULL;
-	//int p2 = NULL;
-	i = ft_printf("ft_printf :    %p\n", p2);
-	j = printf("    printf :   %p\n", p2);
-	// ssssss
-	ft_printf(" ft_print :%d\n", i);
-	printf(" printf :%d\n", j);
-	// ssss
-	printf("L ADRESSE -------------------\n");
-	ft_printf("ft_printf :    %p\n", &p2);
-	printf("    printf :   %p\n", &p2);
 }
